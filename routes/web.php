@@ -28,18 +28,42 @@ Route::get('/', function () {
 
 Auth::routes();
 
-//Route::group(['prefix'=>'administrador','middleware' => 'auth'], function(){
 
-        //////////////// Administrador //////////////
+//========================Rutas que no necesitan ninguna autentificación
+Route::get('inicio', [App\Http\Controllers\PagesController::class, 'inicio'])->name('inicio');
+Route::get('servicios', [App\Http\Controllers\PagesController::class, 'servicios'])->name('servicios');
+Route::get('contacto', [App\Http\Controllers\PagesController::class, 'contacto'])->name('contacto');
+Route::get('prueba', [App\Http\Controllers\PagesController::class, 'prueba'])->name('prueba');
 
+//post de login y registro
+Route::get('acceder', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('acceder');
+Route::post('acceder', [App\Http\Controllers\Auth\LoginController::class, 'redirectTo'])->name('login.custom');
+Route::get('registro', [App\Http\Controllers\Auth\LoginController::class, 'registro'])->name('registro-usuario');
+Route::post('registro', [App\Http\Controllers\Auth\LoginController::class, 'create'])->name('registro-create');
+
+///falta el post de registro
+
+Route::group(['middleware' => 'auth'], function(){
+
+    //======================== Administrador
         //el resource se usa para rutas por defecto
         //new update store y asi.... sino se usan no se de be usar un Route::resource
         //Route::resource('admins', AdministradorController::class)->names('adminprincipal');
-        Route::get('admins', [AdministradorController::class, 'index'] )->name('admin.home');
-        Route::get('adminpaciente', [App\Http\Controllers\PacienteController::class, 'adminpaciente'])->name('admin.paciente');
-        Route::get('admincitas', [App\Http\Controllers\AdministradorController::class, 'admincitas'])->name('admin.citas');
-        Route::get('adminmedicos', [App\Http\Controllers\AdministradorController::class, 'adminmedicos'])->name('admin.medicos');
-        Route::resource('adminespecialidades', 'App\Http\Controllers\EspecialidadController'); //admin.especialidades {index, create, edit, destroy}
+    Route::get('admins', [AdministradorController::class, 'index'] )->name('admin.home');
+    Route::get('adminpaciente', [App\Http\Controllers\PacienteController::class, 'adminpaciente'])->name('admin.paciente');
+    Route::get('admincitas', [App\Http\Controllers\AdministradorController::class, 'admincitas'])->name('admin.citas');
+    Route::get('adminmedicos', [App\Http\Controllers\AdministradorController::class, 'adminmedicos'])->name('admin.medicos');
+    Route::resource('adminespecialidades', 'App\Http\Controllers\EspecialidadController'); //admin.especialidades {index, create, edit, destroy
+
+    //=========================CLIENTES
+    Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.home');
+    Route::get('/citas', [App\Http\Controllers\ClienteController::class, 'citas'])->name('cliente.citas');
+    Route::get('/historial', [App\Http\Controllers\ClienteController::class, 'historial'])->name('cliente.historial');
+    Route::get('/pedidosmed', [App\Http\Controllers\ClienteController::class, 'pedidosmed'])->name('cliente.pedidosmed');
+    Route::get('/regpaciente', [App\Http\Controllers\ClienteController::class, 'regpaciente'])->name('cliente.regpaciente');
+        
+});
+
 
         /////////////////// RUTAS Especialidades  //////////////////////////////
 
@@ -86,11 +110,6 @@ Route::get('/control', [App\Http\Controllers\MedicoController::class, 'control']
 
 
 //////////////// Cliente //////////////
-Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.home');
-Route::get('/citas', [App\Http\Controllers\ClienteController::class, 'citas'])->name('cliente.citas');
-Route::get('/historial', [App\Http\Controllers\ClienteController::class, 'historial'])->name('cliente.historial');
-Route::get('/pedidosmed', [App\Http\Controllers\ClienteController::class, 'pedidosmed'])->name('cliente.pedidosmed');
-Route::get('/regpaciente', [App\Http\Controllers\ClienteController::class, 'regpaciente'])->name('cliente.regpaciente');
 
 Route::group(['prefix'=>'clientes','middleware' => 'auth'], function(){
     //Route::resource('/clientes', ClienteController::class)->names('clienteprincipal');
@@ -98,17 +117,3 @@ Route::group(['prefix'=>'clientes','middleware' => 'auth'], function(){
 
 
 
-/////////////////// Rutas iniciales sin Middelware //////////////////////////////////////
-
-// Rutas que no necesitan ninguna autentificación
-
-Route::get('inicio', [App\Http\Controllers\PagesController::class, 'inicio'])->name('inicio');
-Route::get('servicios', [App\Http\Controllers\PagesController::class, 'servicios'])->name('servicios');
-Route::get('contacto', [App\Http\Controllers\PagesController::class, 'contacto'])->name('contacto');
-Route::get('prueba', [App\Http\Controllers\PagesController::class, 'prueba'])->name('prueba');
-
-//post de login y registro
-Route::get('acceder', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('acceder');
-Route::post('acceder', [App\Http\Controllers\Auth\LoginController::class, 'redirectTo'])->name('login.custom');
-Route::get('registro', [App\Http\Controllers\Auth\LoginController::class, 'registro'])->name('registro-usuario');
-///falta el post de registro
