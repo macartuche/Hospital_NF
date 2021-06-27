@@ -1,8 +1,8 @@
-@include('/cliente/superior')
+@extends('layouts.app')
+@section('content')
 
 <div class="container">
     <h1>Página principal del historial del paciente</h1>
 </div>
 
-@include('/cliente/inferior')
-   
+@endsection

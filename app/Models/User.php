@@ -13,6 +13,7 @@ use App\Models\Ciudad;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.

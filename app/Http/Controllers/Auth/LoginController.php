@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use Session;
 
 
 class LoginController extends Controller
@@ -21,28 +21,50 @@ class LoginController extends Controller
     |
     */
 
-    use AuthenticatesUsers;
+    //use AuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    //protected $redirectTo = RouteServiceProvider::HOME;
+    public function index()
+    {
+        return view('login');
+    }  
 
-    protected function redirectTo(){
+    public function registro(){
+        return view('registro');
+    }
 
-        // print_r(auth()->user->rol_id);
-        // die();
-        if (auth()->user()->rol_id == 1) {
-            return 'admins';
-
-        }else if (auth()->user()->rol_id == 2) {
-            return 'clientes';
-       
-        }else if (auth()->user()->rol_id == 3) {
-            return 'medicos';
+    public function redirectTo(Request $request){
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+   
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            $rol = Auth::user()->rol_id;
+            $view = '';
+            switch ($rol) {
+                case 1:
+                    $view = 'admins';
+                    break;
+                case 2:
+                    $view = 'clientes';
+                    break;
+                default:
+                    $view = 'medicos';
+                    break;
+            }
+           
+            return redirect()->intended($view)
+                        ->withSuccess('Signed in');
         }
+  
+        return redirect("acceder")->withSuccess('Credenciales incorrectas');
     }
 
     /**
@@ -52,6 +74,13 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        //$this->middleware('guest')->except('logout');
+    }
+
+
+    public function logout(){
+        Session::flush();
+        Auth::logout();
+        return Redirect('inicio');
     }
 }

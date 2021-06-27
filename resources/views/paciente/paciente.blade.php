@@ -1,20 +1,16 @@
-
-<!----------------------------------------------------- Data Tables ---------------------------------------------------------------------->
+@extends('layouts.app')
+@section('content')
+    <!----------------------------------------------------- Data Tables ---------------------------------------------------------------------->
     <div class="container">
-
         <div>
             <h3>Administración de Pacientes</h3>
         </div>
-
         <div class="card-body">
-
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                 Nuevo Paciente
-            </button>
-
+            </button> 
             <hr>
-
             <table id="tablaPaciente" class="table table-striped table-bordered" style="width:100%">
                 <thead>
                     <tr>
@@ -51,8 +47,8 @@
                                 </div>
                             </td>
                         </tr>
-                        @include('Modales/crearpaciente')
                         @include('Modales/editarpaciente')
+                        @include('Modales/crearcita')
                     @endforeach
                 </tbody>
                 <tfoot>
@@ -61,7 +57,7 @@
             <hr>
         </div>
     </div>
-    
-    @include('Modales/crearcita')
 
+    @include('Modales/crearpaciente')
 
+@endsection

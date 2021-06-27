@@ -18,18 +18,15 @@ class PacienteController extends Controller
     public function index()
     {
         $paciente = Paciente::all();
-        return view('administrador.adminpaciente', compact('paciente'));
+        return view('administrador.paciente', compact('paciente'));
     }
 
-///////////////////// Admin Paciente /////////////////////////////
 
-        public function adminpaciente(){
-
-            $pacientes = Paciente::all();
-            $especialidades = Especialidades::all();
-            
-            return view('paciente.adminpaciente', compact('pacientes', 'especialidades'));
-        }
+    public function adminpaciente(){
+        $pacientes = Paciente::all();
+        $especialidades = Especialidades::all();
+        return view('paciente.paciente', compact('pacientes', 'especialidades'));
+    }
 
 ///////////////////// Crear Paciente /////////////////////////////
 

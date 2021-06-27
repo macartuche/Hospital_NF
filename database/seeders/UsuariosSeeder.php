@@ -26,7 +26,7 @@ class UsuariosSeeder extends Seeder
             'rol_id' => 1,
             'ciudad_id' => 1,
             'genero_id' => 1,
-         ]);
+         ])->assignRole('Administrador');
 
          $useMedico=User::create([
              'name' => 'Jamil Eduardo',
@@ -40,7 +40,7 @@ class UsuariosSeeder extends Seeder
              'rol_id' => 2,
              'ciudad_id' => 1,
              'genero_id' => 1,
-         ]);
+         ])->assignRole('Cliente');
 
          $userCliente=User::create([
              'name' => 'Ximena Veronica',

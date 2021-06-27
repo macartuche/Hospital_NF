@@ -16,6 +16,10 @@ class DatabaseSeeder extends Seeder
         $this->call(GeneroSeeder::class);
         $this->call(CiudadSeeder::class);
         $this->call(RolSeeder::class);
+       
+
+        //roles para plugin spatie
+        $this->call(RoleSeeder::class);
         $this->call(UsuariosSeeder::class);
     }
 }

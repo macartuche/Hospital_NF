@@ -15,9 +15,8 @@ class ClienteController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('cliente',['only'=>['index']]);
-
+        //$this->middleware('auth');
+        //$this->middleware('cliente',['only'=>['index']]);
     }
 
     /**
@@ -27,13 +26,13 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        return view('cliente.gescliente');
+        //return view('cliente.gescliente');
+        return view('cliente.index');
     }
 
     // public function adminpaciente(){
 
     //     $pacientes = Paciente::all();
-        
     //     return view('administrador.adminpaciente', compact('pacientes'));
     //  }
 

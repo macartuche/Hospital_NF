@@ -18,13 +18,13 @@ class AdministradorController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('admin',['only'=>['index']]);
+        //$this->middleware('auth');
+        //$this->middleware('admin',['only'=>['index']]);
     }
 
     public function index()
     {
-        return view('administrador.gesadmin');
+        return view('administrador.index');
     }
 
     public function crearcita(Request $request, $id)

@@ -1,9 +1,9 @@
+@extends('layouts.app')
+@section('content')
 @php
 use Carbon\Carbon;
 
 @endphp
-
-@include('/administrador/superior')
 
 <!----------------------------------------------------- Data Tables ---------------------------------------------------------------------->
 
@@ -62,6 +62,6 @@ use Carbon\Carbon;
     </div>
 </div>
 
-@include('/administrador/inferior')
+@endsection
 
 

@@ -18,21 +18,14 @@ class PagesController extends Controller
         return view('inicio');
     }
     
-    public function contacto(){
-        return view('contacto');
-    }
-
-    public function acceder()
-    {
-        return view('acceder');
-    }
-
-    public function registro(){
-        return view('registro');
-    }
-
+   
     public function servicios(){
         return view('servicios');
+    }
+
+    /*
+    public function contacto(){
+        return view('contacto');
     }
 
     // Pruebas de Paginas accesibles solo por registro
@@ -124,5 +117,5 @@ class PagesController extends Controller
         return view('prueba');
     }
  
-
+*/
 }
