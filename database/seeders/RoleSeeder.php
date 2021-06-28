@@ -30,7 +30,6 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.especialidades.edit'])->syncRoles([$rol1]);
         Permission::create(['name' => 'admin.especialidades.destroy'])->syncRoles([$rol1]);
         Permission::create(['name' => 'admin.especialidades.update'])->syncRoles([$rol1]);
-        Permission::create(['name' => 'admin.especialidades.edit'])->syncRoles([$rol1]);
 
         Permission::create(['name' => 'cliente.home'])->syncRoles([$rol2]);
         Permission::create(['name' => 'cliente.citas'])->syncRoles([$rol2]);
