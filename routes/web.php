@@ -44,7 +44,7 @@ Route::post('registro', [App\Http\Controllers\Auth\LoginController::class, 'crea
 ///falta el post de registro
 
 Route::group(['middleware' => 'auth'], function(){
-
+    //xyz....
     //======================== Administrador
         //el resource se usa para rutas por defecto
         //new update store y asi.... sino se usan no se de be usar un Route::resource
