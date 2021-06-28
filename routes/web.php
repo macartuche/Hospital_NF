@@ -53,7 +53,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('adminpaciente', [App\Http\Controllers\PacienteController::class, 'adminpaciente'])->name('admin.paciente');
     Route::get('admincitas', [App\Http\Controllers\AdministradorController::class, 'admincitas'])->name('admin.citas');
     Route::get('adminmedicos', [App\Http\Controllers\AdministradorController::class, 'adminmedicos'])->name('admin.medicos');
-   Route::resource('adminespecialidades', 'App\Http\Controllers\EspecialidadController'); //admin.especialidades {index, create, edit, destroy
+    Route::resource('adminespecialidades', 'App\Http\Controllers\EspecialidadController'); //admin.especialidades {index, create, edit, destroy
+    //para ajax de obtener medicos por especialidad
+    Route::get('medicosPorEspecialidad', [App\Http\Controllers\PacienteController::class, 'medicosPorEspecialidad'])->name('ajax.medicosEspecialidad');
 
     //=========================CLIENTES
     Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.home');
@@ -61,7 +63,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/historial', [App\Http\Controllers\ClienteController::class, 'historial'])->name('cliente.historial');
     Route::get('/pedidosmed', [App\Http\Controllers\ClienteController::class, 'pedidosmed'])->name('cliente.pedidosmed');
     Route::get('/regpaciente', [App\Http\Controllers\ClienteController::class, 'regpaciente'])->name('cliente.regpaciente');
-        
+
 });
 
 
@@ -72,7 +74,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::delete('eliminaresp/{id}', [App\Http\Controllers\EspecialidadController::class, 'eliminaresp'])->name('eliminaresp');
         ////////////////// RUTAS Gestion Médicos  //////////////////////////////
         Route::post('crearmed', [App\Http\Controllers\AdministradorController::class, 'crearmed'])->name('crearmed');
-        Route::put('editarmed/{id}', [App\Http\Controllers\AdministradorController::class, 'editarmed'])->name('editarmed');   
+        Route::put('editarmed/{id}', [App\Http\Controllers\AdministradorController::class, 'editarmed'])->name('editarmed');
         Route::delete('eliminarmed/{id}', [App\Http\Controllers\AdministradorController::class, 'eliminarmed'])->name('eliminarmed');
         Route::put('ciudad', [App\Http\Controllers\AdministradorController::class, 'ciudad'])->name('ciudad');
         Route::post('asignarespe/{id}', [App\Http\Controllers\AdministradorController::class, 'asignarespe'])->name('asignarespe');
@@ -92,7 +94,7 @@ Route::group(['middleware' => 'auth'], function(){
 Route::post('crearpaciente', [App\Http\Controllers\PacienteController::class, 'crearpaciente'])->name('crearpaciente');
 
 Route::put('editarpaciente/{id}', [App\Http\Controllers\PacienteController::class, 'editarpaciente'])->name('editarpaciente');
-        
+
 Route::delete('eliminarpaciente/{id}', [App\Http\Controllers\PacienteController::class, 'eliminarpaciente'])->name('eliminarpaciente');
 
 Route::put('ciudad', [App\Http\Controllers\PacienteController::class, 'ciudad'])->name('ciudad');
@@ -102,7 +104,7 @@ Route::get('/infopaciente', [App\Http\Controllers\PacienteController::class, 'cr
 //Route::get('/buscarpaciente', [App\Http\Controllers\PacienteController::class, 'crearpaciente'])->name('infopaciente');
 
 
-        
+
 
 //////////////// Medico //////////////
 Route::resource('medicos', MedicoController::class)->names('medicoprincipal');

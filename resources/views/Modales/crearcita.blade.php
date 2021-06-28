@@ -1,10 +1,3 @@
-    @php
-        use App\Models\Especialidades;
-        use App\Models\User;
-        
-        $especialidades = Especialidades::all();
-        $medicos = User::all();
-    @endphp
     <!------------------------------------------------------------Crear Cita--------------------------------------------------------->
     <div class="modal fade" id="citaModal{{ $paciente->id }}" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -26,6 +19,7 @@
                             <div class="form-group">
                                 <label for="genero">Especialidad</label>
                                 <select name="especialidad_id" id="especialidad_id" class="form-control">
+                                    <option>Seleccione</option>
                                     @foreach ($especialidades as $especialidad)
                                         <option value="{{ $especialidad->id }}">{{ $especialidad->especialidad }}
                                         </option>
@@ -36,13 +30,6 @@
                             <div class="form-group">
                                 <label for="genero">Medico</label>
                                 <select name="medico_id" id="medico_id" class="form-control">
-
-                                    @foreach ($medicos as $medico)
-                                        @if ($medico->rol_id == 3)
-                                            <option value="{{ $medico->id }}">{{ $medico->name }}</option>
-                                        @endif
-                                    @endforeach
-
                                 </select>
                             </div>
 
@@ -86,4 +73,32 @@
                 '16:00', '16:30', '17:00', '17:30', '18:00'
             ]
         });
+
+
+        //==== para lista dependiente
+        var especialidadCombo = $('select[name="especialidad_id"]');
+        var medicosCombo = $('select[name="medico_id"]');
+
+        especialidadCombo.change(function() {
+            var id= $(this).val();
+            if(id){
+                //loader.show();
+                medicosCombo.attr('disabled','disabled')
+
+                $.ajax({
+                    url: '{{url('/medicosPorEspecialidad?especialidad_id=')}}'+id,
+                    success: function(data) {
+                        if(data.success){
+                            var s='<option value="">---Seleccione--</option>';
+                            data.medicos.forEach(function(row){
+                                s +='<option value="'+row.id+'">'+row.name+'</option>'
+                            })
+                            medicosCombo.removeAttr('disabled')
+                            medicosCombo.html(s);
+                            //loader.hide();
+                        }
+                    }
+                });
+            }
+        })
     </script>

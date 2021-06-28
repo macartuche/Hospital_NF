@@ -14,4 +14,15 @@ class EspecialidadMedico extends Model
         'especialidad_id',
     ];
 
+
+    public function especialidades(){
+        return $this->hasMany('App\Models\Especialidades',  'id','especialidad_id');
+    }
+
+    //se relacionan de la tabla de usuario
+    //hasMany tablaRelacion, clave_foranea, clave_principalOtraTabla
+    public function medicos(){
+        return $this->hasMany('App\Models\User', 'id','medico_id');
+    }
+
 }

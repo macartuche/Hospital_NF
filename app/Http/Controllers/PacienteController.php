@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Paciente;
 use App\Models\Especialidades;
+use App\Models\EspecialidadMedico;
+use App\Models\User;
 
 class PacienteController extends Controller
 {
@@ -28,15 +30,26 @@ class PacienteController extends Controller
         return view('paciente.paciente', compact('pacientes', 'especialidades'));
     }
 
+    public function medicosPorEspecialidad(Request $request){
+        //valor que viene por ajax
+        if($request->has('especialidad_id')){
+            $especialidad = $request->get('especialidad_id');
+            $especialidadesMedicos = EspecialidadMedico::where('especialidad_id', '=',$especialidad)->firstOrFail();
+            $medicos = $especialidadesMedicos->medicos;
+            return ['success'=>true, 'medicos'=>$medicos];
+        }
+
+        return ['success'=>false, 'medicos'=>array()];
+    }
 ///////////////////// Crear Paciente /////////////////////////////
 
         public function crearpaciente(Request $request)
         {
-            // para verificar que los datos del formulario lleguen 
+            // para verificar que los datos del formulario lleguen
             //return $request->all();
-    
+
             $nuevoPaciente = new Paciente;
-    
+
             $nuevoPaciente->name = $request->name;
             $nuevoPaciente->apellido = $request->apellido;
             $nuevoPaciente->cedula = $request->cedula;
@@ -46,11 +59,11 @@ class PacienteController extends Controller
             $nuevoPaciente->fechaNacimiento = $request->fechaNacimiento;
             $nuevoPaciente->ciudad_id = $request->ciudad_id;
             $nuevoPaciente->genero_id = $request->genero_id;
-        
+
             $nuevoPaciente->save();
-        
+
             return back();
-    
+
         }
 ///////////////////// Eliminar Paciente /////////////////////////////
         public function eliminarpaciente($id)
@@ -64,14 +77,14 @@ class PacienteController extends Controller
         public function editarpaciente(Request $request, $id)
         {
             $editMedico = Paciente::findOrFail($id);
-    
+
             $editMedico->email = $request->email;
             $editMedico->telefono = $request->telefono;
             $editMedico->direccion = $request->direccion;
             $editMedico->ciudad_id = $request->ciudad_id;
-    
+
             $editMedico->save();
-    
+
             return back()->with('success');
         }
 
