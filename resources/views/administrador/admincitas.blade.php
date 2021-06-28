@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 @php
 use Carbon\Carbon;
@@ -60,8 +61,7 @@ use Carbon\Carbon;
             </tfoot>
         </table>
     </div>
-</div>
-
+</div> 
 @endsection
 
 

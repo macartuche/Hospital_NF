@@ -48,7 +48,7 @@ class AdministradorController extends Controller
     public function admincitas()
     {
         $citas = Cita::all();
-
+        
         return view('administrador.admincitas', compact('citas'));
     }
 

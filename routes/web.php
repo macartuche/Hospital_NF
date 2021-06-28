@@ -53,7 +53,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('adminpaciente', [App\Http\Controllers\PacienteController::class, 'adminpaciente'])->name('admin.paciente');
     Route::get('admincitas', [App\Http\Controllers\AdministradorController::class, 'admincitas'])->name('admin.citas');
     Route::get('adminmedicos', [App\Http\Controllers\AdministradorController::class, 'adminmedicos'])->name('admin.medicos');
-    Route::resource('adminespecialidades', 'App\Http\Controllers\EspecialidadController'); //admin.especialidades {index, create, edit, destroy
+   Route::resource('adminespecialidades', 'App\Http\Controllers\EspecialidadController'); //admin.especialidades {index, create, edit, destroy
 
     //=========================CLIENTES
     Route::get('/clientes', [App\Http\Controllers\ClienteController::class, 'index'])->name('cliente.home');

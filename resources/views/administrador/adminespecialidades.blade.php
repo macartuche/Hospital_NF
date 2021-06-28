@@ -65,9 +65,7 @@
 
     @include('Modales/crearespecialidad')
 
-    </body>
 
-    </html>
 
 
 
